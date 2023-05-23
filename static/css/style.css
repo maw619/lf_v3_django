@@ -1,0 +1,15 @@
+#line {
+  width: 100%;
+  height: 5px;
+  background: #9c0030;
+  box-shadow: 6px 6px 2px gray;
+  margin-bottom: 15px;
+}
+
+.nav-wrapper {
+  background-color: #fff !important;
+}
+
+span #trash{
+  color:red;
+}

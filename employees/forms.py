@@ -1,0 +1,16 @@
+from django import forms
+from base.models import Cargo, Employee
+
+class AddEmployeeForm(forms.ModelForm):
+    class Meta:
+        model = Employee
+        fields = ['name','cargo','email','phone']
+        exclude = ['id']
+        labels = {'name':'Name', 'cargo':'Charge', 'email':'Email', 'phone':'Phone'}
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class':'form-control'}),
+            'cargo': forms.Select(attrs={'class':'form-control'})
+        }

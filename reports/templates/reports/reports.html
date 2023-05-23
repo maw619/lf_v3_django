@@ -1,0 +1,73 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h3><center>{{ tabletitle }}</center></h3>
+<div class="row">
+  <div class="col-md-2">
+    <a
+      href="{% url 'add_report' %}"  
+      type="button"
+      class="btn btn-primary btn-sm my-3"
+      data-mdb-ripple-color="#ffffff"
+      style="background-color: #b70b0b;border:0;height:28px;width:140px;"
+    >
+      ADD REPORT <i class="fa fa-plus"></i>
+    </a>
+  </div>
+  <div class="col-md-10"></div>
+</div>
+
+ <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">{{tabletitle}}</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Report Date</th>
+                                            <th>Project</th>
+                                            <th>Reported By</th>
+                                            <th>Supervisor(s)</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                            <th></th> 
+                                            <th></th> 
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Report Date</th>
+                                            <th>Project</th>
+                                            <th>Reported By</th>
+                                            <th>Supervisor(s)</th>
+                                            <th>Description</th>
+                                            <th></th>
+                                            <th></th> 
+                                            <th></th> 
+                                        </tr>
+                                    </tfoot>
+                                    <tbody> 
+                                        {% for x in reports  %}
+                                        <tr>
+                                                <td><a href="{% url 'detailed_report' x.id %}">{{x.rep_date}}</a></td>
+                                                <td>{{x.project}}</td>
+                                                <td>{{x.employee}}</td>
+                                                <td>
+                                                {% for supervisor in x.supervisors.all %}
+                                                    {{ supervisor }}<br>
+                                                {% endfor %}
+                                                </td>
+                                                <td>{{x.rep_desc}}</td>
+                                                <td><a href="{% url 'update_report' x.id %}"><i class="fa fa-pen-alt"></i></a></td>
+                                                <td><a href="{% url 'report_pdf' x.id %}"><i class="fa fa-search"></i></a></td>
+                                                <td><a href="{% url 'delete_report' x.id %}"><i class="fa fa-trash"></i></a></td> 
+                                            </tr> 
+                                            {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}
+

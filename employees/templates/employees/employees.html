@@ -1,0 +1,64 @@
+{% extends 'base.html' %} 
+{% block content %}
+<h3><center>{{ tabletitle }}</center></h3>
+<div class="row">
+  <div class="col-md-2">
+    <a
+      href="{% url 'add_employee' %}"  
+      type="button"
+      class="btn btn-primary btn-sm my-3"
+      data-mdb-ripple-color="#ffffff"
+      style="background-color: #b70b0b;border:0;height:28px;width:140px;"
+    >
+      ADD EMPLOYEE <i class="fa fa-plus"></i>
+    </a>
+  </div>
+  <div class="col-md-10"></div>
+</div>
+
+ <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">{{tabletitle}}</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Charge</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Charge</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody> 
+                                        {% for x in emps  %}
+                                        <tr>
+                                                <td><a href="{% url 'employee_info' x.id %}">{{x.name}}</a></td>
+                                                <td>{{x.email}}</td>
+                                                <td>{{x.phone}}</td>
+                                                <td>{{x.cargo}}</td>
+                                                <td><a href="{% url 'update_employee' x.id %}"><i class="fa fa-pen-alt"></i></a></td>
+                                                <td><a href="{% url 'delete_employee' x.id %}"><i class="fa fa-trash" id="trash"></i></a></td>
+                                            
+                                            </tr> 
+                                            {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock content %}
+

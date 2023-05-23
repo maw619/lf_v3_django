@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-success" value="update">
+</form>
+  <br>
+  <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
+{% endblock content %}
+

@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+
+
+<div class="container">
+  <main class="form-signin w-100 m-auto p-5">
+    <div class="d-flex align-items-center justify-content-center">
+      <form class="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          {{form.as_p}}
+        </div> 
+        <input class="btn btn-primary" type="submit" value="ADD GROUP" style="width:100%;"/> 
+      </form>
+    </div>
+    </div>
+
+
+    <main class="form-signin w-100 m-auto">
+      <div class="d-flex align-items-center justify-content-center">
+  
+        <table class="table table-striped" style="width: 80%;">
+          <tr>
+            <td>Group</td>
+            <td>email(s)</td>
+            <td>add / remove<br> member</td>
+            <td>delete</td>
+          </tr>
+          {% for group in email_groups %}
+                  
+          <tr>
+            <td>{{group.name}}</td>
+            <td>
+              {{group.members.all|join:"<br>"}}
+            </td>
+            <td><a href="{% url 'update_email_group' group.id %}" style="color: blue"><i class="fas fa-pen-alt"></i></a>
+            </td>
+            <td><a href="{% url 'delete_email_group' group.id %}" style="color: red"><i class="fas fa-backspace"></i></a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      </div>
+</div>
+
+    {% endblock %}

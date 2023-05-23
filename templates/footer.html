@@ -1,0 +1,126 @@
+    {% load static %}
+    <!-- Bootstrap core JavaScript-->
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    
+
+          <script>
+            $(document).ready(function () {
+              $("#single1").on("change", function () {
+                $("#my-form").submit();
+              });
+            });
+          </script>
+
+          <script>
+            $(document).ready(function () {
+              $("#single1").on("change", function () {
+                $("#my-form").submit();
+              });
+            });
+          </script>
+          <script>
+            $(document).ready(function () {
+              $("#end_input").on("change", function () {
+                $("#date_range_form").submit();
+              });
+            });
+          </script>
+          <script>
+            $('#js-example-basic-hide-search-multi').select2();
+
+            $('#js-example-basic-hide-search-multi').on('select2:opening select2:closing', function( event ) {
+                var $searchfield = $(this).parent().find('.select2-search__field');
+                $searchfield.prop('disabled', true);
+            });
+          </script>
+
+ <script>
+let startDate2 = document.getElementById('start2');
+let endDate2 = document.getElementById('end2');
+
+// Add an event listener to the start date input
+startDate2.addEventListener('input', () => {
+    endDate2.value = startDate2.value; // set the end date input to the value of the start date input
+});
+</script>
+
+
+<script>
+  let startDate = document.getElementById('start');
+  let endDate = document.getElementById('end');
+
+  // Add an event listener to the start date input
+  startDate.addEventListener('input', () => {
+    endDate.value = startDate.value; // set the end date input to the value of the start date input
+  });
+</script>
+ 
+  
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+
+
+<script>
+  $(document).ready(function () {
+    $('#dataTable2').DataTable({
+      dom: 'Blfrtip',
+      buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      lengthMenu: [10, 25, 50, 100], // Specify the available page lengths
+      pageLength: 25 // Set the initial page length
+    });
+  });
+</script>
+
+
+<script>
+  $("#single1").select2({
+    placeholder: "Select Employee",
+    allowClear: true,
+    
+  });
+  $("#single2").select2({
+    placeholder: "Select an Employee",
+    allowClear: true,
+  });
+  $("#single3").select2({
+    placeholder: "Select a type",
+    allowClear: true,
+  });
+  $("#single4").select2({
+    placeholder: "choose email(s):",
+    allowClear: true,
+    dropdownParent: $('#staticBackdrop'),
+  });
+  
+</script>
+
+
+
+</body>
+
+</html>

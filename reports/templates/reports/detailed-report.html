@@ -33,7 +33,7 @@
     </tr>
     <tr>
       <td align="center" colspan="2"><a href="{% url 'add_photo' rep_key %}" class="btn btn-primary">ADD PHOTO</a>
-        <a href="" class="btn btn-success"  title="email this report">SEND EMAIL</a> 
+        <a href="{% url 'report_pdf' rep_key %}" class="btn btn-success"  title="email this report">SEND EMAIL</a> 
       </td>
     </tr>
   </table>
@@ -100,8 +100,8 @@
             <tr>
               <td align="center" colspan="2"> 
                 <a class="btn btn-secondary" href="/reports/add-photo2/{{ rep_key }}/{{ x.id }}">Attach second photo</a>
-                <a style="color:#0d6efd" href="/update_photo/{{ y.id }}"><i class="fa fa-edit fa-2x"></i></a> 
-                <a style="color:#dc4c64" href="/reports/delete-photo/{{x.id}}"><i class="fa fa-trash fa-2x"></i></a>
+                <a style="color:#0d6efd" href="{% url 'update_photo1' x.id %}"><i class="fa fa-edit fa-2x"></i></a> 
+                <a style="color:#dc4c64" href="{% url 'delete_photo' x.id %}"><i class="fa fa-trash fa-2x"></i></a>
               </td>
             </tr>
               {% endfor %}

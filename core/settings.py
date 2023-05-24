@@ -84,9 +84,9 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        'NAME': "htmx",
+        'NAME': "lfv3",
         'USER': "root",
-        'PASSWORD': "2552",
+        'PASSWORD': "2222",
         'HOST': "localhost",
         'PORT': 3306,
     	'OPTIONS': {

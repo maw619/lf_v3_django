@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Employee(models.Model):
     name = models.CharField(max_length=70, blank=True, null=True)
-    cargo = models.ForeignKey('Cargo', on_delete=models.CASCADE)
+    charge = models.ForeignKey('Charges', on_delete=models.CASCADE)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
 
@@ -47,14 +47,6 @@ class Project(models.Model):
         return self.pr_desc
 
 
-class Cargo(models.Model):
-    desc = models.CharField(max_length=50, blank=True, null=True) 
-    class Meta:
-        managed = True
-        db_table = 'cargos' 
-    def __str__(self) -> str:
-        return self.desc
-    
 
 class Photo(models.Model): 
     ph_link = models.ImageField(upload_to='images/',null=True, blank=True)

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from base.models import Employee, Cargo
+from base.models import Employee
 from .forms import AddEmployeeForm
 
 def employees(request):

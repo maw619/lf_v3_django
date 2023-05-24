@@ -8,6 +8,8 @@ import os
 from django.conf import settings
 from django.contrib.staticfiles import finders 
 from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.http import FileResponse
+from io import BytesIO
 
 
 def link_callback(uri, rel):
@@ -49,7 +51,7 @@ def report_pdf(request, pk):
     now = datetime.datetime.now()
     date_string = now.strftime('%B %d, %Y')
 
-    destination = "/Users/marco/pythonProjects/LF_htmx/base/report.pdf"
+    destination = "report.pdf"
 
     all_employees = Employee.objects.all()
     report = Report.objects.get(id=pk)
@@ -241,5 +243,118 @@ def report_pdf(request, pk):
         #messages.success(request, 'Email sent')
         return redirect('reports')
     return render(request, 'pdf_reports/reporte_udp_standalone.html', context)
+
+
+
+def report_pdf_download(request, pk):
+        file = BytesIO()
+        template_path = 'pdf_reports/report_pdf.html'
+        request.session['rep_key'] = pk
+
+        now = datetime.datetime.now()
+        date_string = now.strftime('%B %d, %Y')
+
+        destination = "report.pdf"
+
+        all_employees = Employee.objects.all()
+        report = Report.objects.get(id=pk)
+        photo1 = Photo.objects.filter(reports_id=pk)
+        photo2 = Photo2.objects.filter(reports2_id=pk)
+        rep_desc = report.rep_desc
+        rep_user_name = report.rep_user_name
+        desc = report.rep_desc
+        rep_notes = report.rep_notes
+        rep_date = report.rep_date
+        pr_desc = report.project.pr_desc
+        supervisors = report.supervisors
+
+
+
+        member_name = request.GET.getlist('rep_fk_emp_key_sup')
+        group_selected = request.GET.getlist('groups_field')
+        show_group = []
+        show_emails = []
+
+        if group_selected:
+            for group_name in group_selected:
+                group = EmailGroup.objects.filter(name=group_name).first()
+                if group:
+                    show_group.append(group)
+                    members = group.members.all()
+                    for member in members:
+                        show_emails.append(member.email)
+
+        show_single_name = ""
+        if member_name is not None:
+            show_single_name = member_name
+
+
+
+        show_group_names = ""
+        if show_group:
+            for group in show_group:
+                show_group_names = group.name
+        else:
+            print("No group found")
+
+
+        the_form_member = request.GET.get('rep_fk_emp_key_sup')
+        the_form_group = request.GET.get('groups_field')
+
+
+        pages = len(photo1) + 3  
+        context = {
+            'report': report,
+            'emails':all_employees,
+            'mydate': date_string,
+            'rep_desc': rep_desc,
+            'rep_user_name': rep_user_name,
+            'desc': desc,
+            'rep_notes': rep_notes,
+            'rep_date': rep_date,
+            'pr_desc': pr_desc,
+            'supervisors': supervisors,
+            'photo1': photo1,
+            'photo2': photo2,
+            'rep_key': request.session['rep_key'],
+            'totalpages': "test",
+            'observation': "Observation",
+            'totalpages': pages,
+            'groups': EmailGroup.objects.all(),
+            'show_group_names': show_group_names,
+            'show_names': show_emails,
+            'group_selected': group_selected,
+            'show_single_name': show_single_name,
+            'the_form_member': the_form_member,
+            'the_form_group': the_form_group,
+    
+        }
+
+        # file = open(f"{report.project.pr_desc}-{date_string}.pdf", "w+b")
+        # #context = {'myvar': 'this is your template context'}
+        # # Create a Django response object, and specify content_type as pdf
+        # response = HttpResponse(content_type='application/pdf')
+        # response['Content-Disposition'] = 'attachment; filename="report.pdf"' 
+
+        # # find the template and render it.
+        # template = get_template(template_path)
+        # html = template.render(context)
+
+    
  
-	
+  
+        file = BytesIO()
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'inline; filename="{report.project.pr_desc}-{date_string}.pdf"'  # Set 'inline' instead of 'attachment'
+        template = get_template(template_path)
+        html = template.render(context)
+
+        pisa_status = pisa.CreatePDF(
+            html,
+            dest=file,
+            link_callback=link_callback
+        )
+
+        file.seek(0)
+        response.write(file.read())
+        return response

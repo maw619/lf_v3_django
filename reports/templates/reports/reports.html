@@ -30,9 +30,10 @@
                                             <th>Reported By</th>
                                             <th>Supervisor(s)</th>
                                             <th>Description</th>
-                                            <th></th>
-                                            <th></th> 
-                                            <th></th> 
+                                            <th>edit</th>
+                                            <th>preview</th> 
+                                            <th>email</th> 
+                                            <th>delete</th> 
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -42,15 +43,16 @@
                                             <th>Reported By</th>
                                             <th>Supervisor(s)</th>
                                             <th>Description</th>
-                                            <th></th>
-                                            <th></th> 
-                                            <th></th> 
+                                            <th>edit</th>
+                                            <th>preview</th> 
+                                            <th>email</th> 
+                                            <th>delete</th>  
                                         </tr>
                                     </tfoot>
                                     <tbody> 
                                         {% for x in reports  %}
                                         <tr>
-                                                <td><a href="{% url 'detailed_report' x.id %}">{{x.rep_date}}</a></td>
+                                                <td><a href="{% url 'detailed_report' x.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to view detailed report"><b>{{x.rep_date}}</b></a></td>
                                                 <td>{{x.project}}</td>
                                                 <td>{{x.employee}}</td>
                                                 <td>
@@ -59,9 +61,10 @@
                                                 {% endfor %}
                                                 </td>
                                                 <td>{{x.rep_desc}}</td>
-                                                <td><a href="{% url 'update_report' x.id %}"><i class="fa fa-pen-alt"></i></a></td>
-                                                <td><a href="{% url 'report_pdf' x.id %}"><i class="fa fa-search"></i></a></td>
-                                                <td><a href="{% url 'delete_report' x.id %}"><i class="fa fa-trash"></i></a></td> 
+                                                <td><center><a href="{% url 'update_report' x.id %}"><i class="fa fa-pen-alt"></i></a></center></td>
+                                                <td><center><a href="{% url 'report_pdf_download' x.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Preview PDF"><i class="fa fa-book"></i></a></center></td>
+                                                <td><center><a href="{% url 'report_pdf' x.id %}" data-bs-toggle="tooltip" data-bs-placement="top" title="Send to Email"><i class="fa fa-envelope"></i></a></center></td>
+                                                <td><center><a href="{% url 'delete_report' x.id %}" onclick="return confirmDelete();" ><i class="fa fa-trash" style="color: #b70b0b"></i></a></center></td> 
                                             </tr> 
                                             {% endfor %}
                                     </tbody>
@@ -69,5 +72,11 @@
                             </div>
                         </div>
                     </div>
+                  <script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this report?");
+    }
+</script>
+
 {% endblock content %}
 
